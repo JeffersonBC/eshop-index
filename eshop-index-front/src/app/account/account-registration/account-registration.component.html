@@ -1,0 +1,142 @@
+<form #form="ngForm" (ngSubmit)="register()" *ngIf="!registerDone; else complete">
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="row"><div class="col s12">
+          <h1>User registration</h1>
+        </div></div>
+
+        <div class="row" *ngIf="errorMessage !== ''">
+          <div class="col s12">
+            <div class="card-panel red darken-1 white-text error-message"
+              [innerHTML]="errorMessage"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              All fields are required (reCAPTCHA included).
+              <br>
+              Password must be at least 8 charcters long and have at least one non-numeric character.
+            </div>
+          </div>
+        </div>
+
+        <div class="input-field">
+          <input id="user_username" #username="ngModel"
+            name="username"
+            [(ngModel)]="formInfo.username"
+            type="text"
+            [class.invalid]="!username.valid && username.touched"
+            required>
+          <label for="user_username">Username</label>
+        </div>
+
+        <div class="input-field">
+          <input id="user_email" #email="ngModel"
+            name="email"
+            [(ngModel)]="formInfo.email"
+            type="email"
+            [class.invalid]="!email.valid && email.touched"
+            required email>
+          <label for="user_email">Email</label>
+        </div>
+
+        <div class="input-field">
+          <input id="user_first_name" #firstName="ngModel"
+            name="firstName"
+            [(ngModel)]="formInfo.firstName"
+            type="text"
+            [class.invalid]="!firstName.valid && firstName.touched"
+            required>
+          <label for="user_first_name">First name</label>
+        </div>
+
+        <div class="input-field">
+          <input id="user_last_name" #lastName="ngModel"
+            name="lastName"
+            [(ngModel)]="formInfo.lastName"
+            type="text"
+            [class.invalid]="!lastName.valid && lastName.touched"
+            required>
+          <label for="user_last_name">Last name</label>
+        </div>
+
+        <div class="input-field">
+          <input id="user_password1" #password1="ngModel"
+            name="password1"
+            [(ngModel)]="formInfo.password1"
+            type="password"
+            [class.invalid]="!password1.valid && password1.touched"
+            required
+            minlength="8">
+          <label for="user_password1">Password</label>
+        </div>
+
+        <div class="input-field">
+          <input id="user_password2" #password2="ngModel"
+            name="password2"
+            [(ngModel)]="formInfo.password2"
+            type="password"
+            [class.invalid]="!password2.valid && password2.touched"
+            required
+            minlength="8"
+            [appEqual]="formInfo.password1">
+          <label for="user_password2">Password confirmation</label>
+        </div>
+
+        <div>
+          <input id="privacy" #privacy="ngModel"
+            name="privacy"
+            [(ngModel)]="formInfo.privacy"
+            type="checkbox"
+
+            required>
+          <label for="privacy"
+              [class.invalid]="!privacy.valid && privacy.touched">
+            I agree with the <a routerLink="/privacy">privacy policy</a></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 center">
+      <re-captcha id="captcha" name="captcha"
+        [(ngModel)]="captcha"
+        required>
+      </re-captcha>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="right">
+          <button class="btn waves-effect waves-light"
+              type="submit"
+              value="login"
+              [disabled]="_loading">
+            <i class="material-icons left">input</i>Register
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<ng-template #complete>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="card-panel">
+          Your account has been created, but before it can be used it must be activated.
+          <br>You will receive soon an email in the informed address with the activation link.
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

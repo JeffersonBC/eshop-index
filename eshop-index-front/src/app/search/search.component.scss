@@ -1,0 +1,20 @@
+@import 'media-queries';
+
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 64px;
+}
+
+.search-result {
+    margin: 48px 32px 0;
+
+    @media #{$small-and-down} {
+        margin: 24px 0;
+    }
+}
+
+.margin-bottom-0 {
+    margin-bottom: 0;
+}

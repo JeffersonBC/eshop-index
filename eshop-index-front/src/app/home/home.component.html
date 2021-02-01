@@ -1,0 +1,74 @@
+<!-- SLOTS -->
+<app-game-carousel *ngIf="!loadedFromSlots"></app-game-carousel>
+<div (appDeferLoad)="gameListsFromSlots$.subscribe()">
+  <ng-container *ngFor="let list of gameListsFromSlots">
+    <div class="container">
+      <div class="title-button-container">
+        <h1>{{ list.title }}</h1>
+        <!-- <a class="btn-flat waves-effect waves-orange" *ngIf="false" routerLink="/search" [queryParams]=""><i class="material-icons left">remove_red_eye</i>{{ 'button' }}</a> -->
+      </div>
+    </div>
+
+    <app-game-carousel
+      [games]="list.games"
+      [analyticsCategory]="'Home - ' + list.title">
+    </app-game-carousel>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="loadedFromSlots">
+
+  <ng-container *ngIf="!_loggedIn">
+    <!-- RANDOM TAG -->
+    <div (appDeferLoad)="gameListRandomTag$.subscribe()">
+      <div class="container" *ngIf="randomTagTitle">
+        <h1>Games with tag {{ randomTagTitle }}</h1>
+      </div>
+      <app-game-carousel
+        [games]="gameListRandomTag"
+        [analyticsCategory]="'Home - Random Tag ' + randomTagTitle">
+      </app-game-carousel>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="_loggedIn">
+    <!-- SIMILAR -->
+    <div (appDeferLoad)="gameListSimilarLiked$.subscribe()">
+      <div class="container" *ngIf="similarGameTitle">
+        <h1>Because you liked {{ similarGameTitle }}</h1>
+      </div>
+      <app-game-carousel
+        [games]="gameListSimilarLiked"
+        [analyticsCategory]="'Home - Similar to ' + similarGameTitle"
+        emptyMessage="You haven't liked a game with similar titles yet">
+      </app-game-carousel>
+    </div>
+
+    <!-- RECOMENDED BY FOLLOWING -->
+    <div (appDeferLoad)="gameListRecomendedFollowing$.subscribe()">
+      <div class="container" *ngIf="loadedRecomendedFollowing">
+        <h1>Recomended by people you follow</h1>
+      </div>
+      <app-game-carousel
+        [games]="gameListRecomendedFollowing"
+        analyticsCategory="Home - Recomended by Following"
+        emptyMessage="You aren't following anyone who have recomended a game yet">
+      </app-game-carousel>
+    </div>
+
+    <!-- RANDOM LIKED TAG -->
+    <div (appDeferLoad)="gameListLikedTag$.subscribe()">
+      <div class="container" *ngIf="likedTagTitle">
+        <h1>Because you liked games with the tag {{ likedTagTitle }}</h1>
+      </div>
+      <app-game-carousel
+        [games]="gameListLikedTag"
+        [analyticsCategory]="'Home - Random Liked Tag ' + likedTagTitle"
+        [emptyMessage]="likedTagTitle == '...' ?
+          'You haven\'t liked any game with a tag yet' :
+          'No recent game found for the given tag'">
+      </app-game-carousel>
+    </div>
+
+  </ng-container>
+</ng-container>

@@ -1,0 +1,198 @@
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <div class="row">
+        <div class="col s12">
+
+          <a routerLink="" class="brand-logo">eShop Index</a>
+
+          <ul *ngIf="loggedIn" class="right hide-on-large-only hide-on-small-only">
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <a id="navbar_user_profile" routerLink="/account">
+                <i class="material-icons">account_box</i>
+              </a>
+            </li>
+          </ul>
+
+          <ul *ngIf="loggedIn" class="right hide-on-large-only hide-on-small-only">
+            <li routerLinkActive="active">
+              <a id="navbar_notifications" routerLink="/account/newsfeed">
+                <i class="material-icons">timeline</i>
+              </a>
+            </li>
+          </ul>
+
+          <ul *ngIf="!loggedIn" class="right hide-on-large-only hide-on-small-only">
+            <li routerLinkActive="active">
+              <a id="navbar_login" routerLink="/account/login">
+                <i class="material-icons">exit_to_app</i>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="right hide-on-large-only">
+            <li routerLinkActive="active">
+              <a id="navbar_search" routerLink="/search">
+                <i class="material-icons">search</i>
+              </a>
+            </li>
+          </ul>
+
+          <a href="#"
+              data-activates="slide-out"
+              class="button-collapse"
+              materialize="sideNav"
+              [materializeParams]="[{menuWidth: 300,edge: 'left', closeOnClick: true, draggable: true}]">
+            <i class="material-icons">menu</i>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- SIDE MENU -->
+<main>
+  <ul id="slide-out" class="side-nav fixed z-auto">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a id="sidemenu_home" class="waves-effect" routerLink="">
+        <i class="material-icons">home</i>Home
+      </a>
+    </li>
+
+    <li>
+      <a id="sidemenu_country" class="waves-effect" (click)="openModal()">
+        <i class="material-icons">place</i>Select Country
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a id="sidemenu_search" class="waves-effect" routerLink="/search">
+        <i class="material-icons">search</i>Search Games
+      </a>
+    </li>
+
+    <!-- LOGGED IN -->
+    <ng-container *ngIf="loggedIn">
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a id="sidemenu_notifications" class="waves-effect" routerLink="/account/newsfeed">
+          <i class="material-icons">timeline</i>News Feed
+          <span *ngIf="qtdConvites > 0" class="new badge" data-badge-caption="">{{ qtdConvites }}</span>
+        </a>
+      </li>
+
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a id="sidemenu_user_profile" class="waves-effect" routerLink="/account">
+          <i class="material-icons">account_box</i>User Profile
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a id="sidemenu_wishlist" class="waves-effect" routerLink="/wishlist">
+          <i class="material-icons">stars</i>Wishlist
+        </a>
+      </li>
+
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a id="sidemenu_users_following" class="waves-effect" routerLink="/account/following">
+          <i class="material-icons">group</i>Users following
+        </a>
+      </li>
+
+      <!-- ADMIN -->
+      <ng-container *ngIf="isAdmin">
+        <li>
+          <div class="divider" style="margin: 1rem;"></div>
+        </li>
+
+        <li routerLinkActive="active">
+          <a id="sidemenu_tag_groups" class="waves-effect" routerLink="/admin/tag_groups">
+            <i class="material-icons">bookmarks</i>Tag Groups
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a id="sidemenu_tags" class="waves-effect" routerLink="/admin/tags">
+            <i class="material-icons">bookmark</i>Tags
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a id="sidemenu_games" class="waves-effect" routerLink="/admin/games">
+            <i class="material-icons">games</i>Games
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a id="sidemenu_games" class="waves-effect" routerLink="/admin/game_lists">
+            <i class="material-icons">list</i>Game Lists
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a id="sidemenu_games" class="waves-effect" routerLink="/admin/suggestions/tags">
+            <i class="material-icons">bookmark</i>Suggested Tags
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a id="sidemenu_games" class="waves-effect" routerLink="/admin/suggestions/similar">
+            <i class="material-icons">view_module</i>Suggested Similar Games
+          </a>
+        </li>
+      </ng-container>
+
+    </ng-container>
+
+    <li><div class="divider" style="margin: 1rem;"></div></li>
+
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a id="sidemenu_about" routerLink="/about">
+        <i class="material-icons">help</i>About
+      </a>
+    </li>
+
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a id="sidemenu_contact" routerLink="/contact">
+        <i class="material-icons">contact_mail</i>Contact
+      </a>
+    </li>
+
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a id="sidemenu_privacy" routerLink="/privacy">
+        <i class="material-icons">report_problem</i>Privacy Policy
+      </a>
+    </li>
+
+    <ng-container *ngIf="!loggedIn; else logOff">
+      <li><div class="divider" style="margin: 1rem;"></div></li>
+
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a id="sidemenu_login" routerLink="/account/login">
+          <i class="material-icons">exit_to_app</i>Log In
+        </a>
+      </li>
+    </ng-container>
+
+    <ng-template #logOff>
+      <li><div class="divider" style="margin: 1rem;"></div></li>
+
+      <li>
+        <a id="sidemenu_logoff" class="waves-effect" (click)="logoff()">
+          <i class="material-icons">directions_run</i>Log Off
+        </a>
+      </li>
+    </ng-template>
+
+    <li><p>&nbsp;</p></li>
+  </ul>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+</main>
+
+<app-app-root-country-modal #countryModal>
+</app-app-root-country-modal>

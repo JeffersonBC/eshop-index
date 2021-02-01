@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Users following</h1>
+
+  <ng-container *ngIf="users; else loading">
+    <div class="card-container" *ngFor="let user of users; let index = index" >
+      <app-user-card [user]="user"></app-user-card>
+
+      <button class="btn-flat waves-effect waves-orange"
+        (click)="clickUnfollow(index)"
+        [disabled]="user._loadingUnfollow">
+        <i class="material-icons">notifications_off</i>
+      </button>
+    </div>
+
+    <div class="card-panel" *ngIf="!users.length">
+      Not following any user yet.
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <app-loading-circle></app-loading-circle>
+  </ng-template>
+</div>

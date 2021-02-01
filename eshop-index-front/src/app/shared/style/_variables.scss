@@ -1,0 +1,40 @@
+/*
+    Todas as opções de variáveis do materialize-css podem ser encontradas em:
+    https://github.com/Dogfalo/materialize/blob/master/sass/components/_variables.scss
+*/
+
+@import '~materialize-css/sass/components/color';
+@import './media-queries';
+
+
+// 1. Colors
+// ==========================================================================
+
+$primary-color: color("orange", "darken-3") !default;
+$primary-color-light: lighten($primary-color, 15%) !default;
+$primary-color-dark: darken($primary-color, 15%) !default;
+
+$secondary-color: color("orange", "darken-3") !default;
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$link-color: color("orange", "darken-3") !default;
+
+
+// 10. Fonts
+// ==========================================================================
+
+$roboto-font-path: "~materialize-css/dist/fonts/roboto/" !default;
+
+
+
+// 11. Forms
+// ==========================================================================
+
+// Text Inputs + Textarea
+$input-background: transparent !default;
+
+
+// 25. Progress Bar
+// ==========================================================================
+
+$progress-bar-color: color("cyan", "base") !default;

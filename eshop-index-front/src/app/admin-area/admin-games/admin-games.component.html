@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col s12">
+    <h1>Games</h1>
+
+    <a class="btn-flat waves-effect waves-orange" routerLink="add" >
+      <i class="material-icons left">add</i>Add new game
+    </a>
+
+    <form (ngSubmit)="filter()">
+      <div class="row">
+        <div class="input-field col s8">
+          <input id="game_title" name="game_title"
+            placeholder="Game title"
+            type="text"
+            [(ngModel)]="filterText">
+        </div>
+        <button class="btn waves-effect waves-light col s4" type="submit">Filter</button>
+      </div>
+    </form>
+
+    <table class="striped">
+      <!-- HEADER -->
+      <thead>
+        <tr>
+          <th>Icon</th>
+          <th class="full-width">Title</th>
+          <th><i class="material-icons">thumb_up</i></th>
+          <th><i class="material-icons">thumb_down</i></th>
+          <th>Highlight</th>
+          <th>Hide</th>
+          <th>Merge</th>
+          <th>Similar</th>
+          <th>Tags</th>
+          <th>Media</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+
+      <!-- ROWS -->
+      <tbody>
+        <tr *ngFor="let game of gamesCurrentPage" class="table-line">
+          <td class="game-icon"><img [src]="game.image_eu_square"></td>
+          <td><a [routerLink]="['/game', game.code_unique]">{{ game.title }}</a></td>
+          <td class="center-align">{{ game.likes }}</td>
+          <td class="center-align">{{ game.dislikes }}</td>
+          <td class="center-align">
+            <button (click)="highlight(game.id)"
+                class="highlight btn-flat"
+                [class.disabled]="_loading"
+                [class.selected]="game.highlighted">
+              <i class="material-icons">highlight</i>
+            </button>
+          </td>
+          <td class="center-align">
+            <button (click)="hide(game.id)"
+                class="highlight btn-flat"
+                [class.disabled]="_loading"
+                [class.selected]="game.hide">
+              <i class="material-icons">visibility_off</i>
+            </button>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['merge', game.id]"><i class="material-icons">call_merge</i></a>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['similar', game.id]"><i class="material-icons">view_module</i></a>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['tags', game.id]"><i class="material-icons">bookmark</i></a>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="[game.id, 'media']"><i class="material-icons">theaters</i></a>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['edit', game.id]"><i class="material-icons">edit</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PAGINATION BUTTONS -->
+    <ul class="pagination">
+      <li [class.disabled]="currentPage <= 1"
+          [class.waves-effect]="currentPage > 1">
+        <a class="clickable" (click)="prevPage()"><i class="material-icons">chevron_left</i></a>
+      </li>
+
+      <li [class.active]="currentPage == pageNumber" *ngFor="let pageNumber of pages">
+        <a class="clickable" (click)="goToPage(pageNumber)">{{ pageNumber }}</a>
+      </li>
+
+      <li [class.disabled]="currentPage >= pages.length"
+          [class.waves-effect]="currentPage < pages.length">
+        <a class="clickable" (click)="nextPage()"><i class="material-icons">chevron_right</i></a>
+      </li>
+    </ul>
+
+  </div>
+</div>

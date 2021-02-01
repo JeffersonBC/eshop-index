@@ -1,0 +1,43 @@
+<ng-container *ngIf="media; else loading">
+  <div #swiperContainer class="swiper-container" [swiper]="config" [(index)]="index">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let m of media">
+        <div class="media-slide" (appDeferLoad)="m.loaded = true">
+          <ng-container *ngIf="m.media_type == 'IMG' && m.loaded">
+            <img [src]="m.url" alt="image">
+          </ng-container>
+
+          <iframe *ngIf="m.media_type == 'YTB'"
+            [src]="m.url"
+            frameborder="0"
+            allow="encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev z-depth-3"></div>
+    <div class="swiper-button-next z-depth-3"></div>
+  </div>
+
+  <ng-container *ngIf="!media.length && emptyMessage">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+          <div class="card-panel">
+            {{ emptyMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <div class="valign-wrapper loading">
+    <app-loading-circle></app-loading-circle>
+  </div>
+</ng-template>

@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <h1 *ngIf="!isEditing">Add Tag</h1>
+      <h1 *ngIf="isEditing">Edit Tag</h1>
+
+      <form #form="ngForm" (ngSubmit)="send()">
+        <div class="input-field">
+          <input id="tag_name" #name="ngModel" name="name"
+            [class.invalid]="!name.valid && name.touched"
+            [(ngModel)]="formInfo.name"
+            type="text"
+            required
+            maxlength="64">
+          <label for="tag_group_name">Tag Name</label>
+        </div>
+
+        <div class="input-field">
+          <select id="tag_group" #name="ngModel" name="group"
+              materialize="material_select"
+              [materializeSelectOptions]="tagGroups"
+              [disabled]="tagGroups.length == 0"
+              [class.invalid]="!name.valid && name.touched"
+              [(ngModel)]="formInfo.group.id"
+              required>
+            <option value="" disabled selected>
+              {{ tagGroups.length ? 'Choose a group' : 'Loading...' }}
+            </option>
+            <option *ngFor="let group of tagGroups" [value]="group.id">{{ group.name }}</option>
+          </select>
+          <label>Tag Group</label>
+        </div>
+
+        <div class="buttons-container right">
+          <button id="review-delete-button"
+              *ngIf="isEditing"
+              class="btn waves-effect waves-light left"
+              type="button"
+              (click)="delete()">
+            <i class="material-icons left">delete_forever</i>Delete
+          </button>
+
+          <button id="review-send-button"
+              class="btn waves-effect waves-light"
+              type="submit">
+            <i class="material-icons left">send</i>Send
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

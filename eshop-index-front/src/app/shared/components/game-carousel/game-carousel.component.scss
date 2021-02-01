@@ -1,0 +1,28 @@
+@import 'media-queries';
+
+
+.swiper-button-prev, .swiper-button-next {
+    height: 32px;
+    width: 32px;
+    background-color: white;
+    border-radius: 16px;
+    background-size: 12px;
+
+    &.swiper-button-disabled {
+        display: none;
+    }
+
+    @media #{$small-and-down} {
+        display: none;
+    }
+}
+
+.swiper-slide > div {
+    margin: 0 8px;
+}
+
+.loading {
+    height: 256px;
+    width: 100%;
+    justify-content: space-around;
+}

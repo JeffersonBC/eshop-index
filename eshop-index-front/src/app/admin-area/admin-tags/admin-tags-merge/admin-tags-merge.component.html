@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Merge Tags</h1>
+
+    <h2>Merge tag {{ tag?.group.name }} | {{ tag?.name }} with</h2>
+    <select
+        materialize="material_select"
+        [disabled]="!tagsList || _loading"
+        [(ngModel)]="selectedTagId">
+      <ng-container *ngIf="tagsList">
+        <option value="" disabled selected>Choose your option</option>
+        <option *ngFor="let tag of tagsList" [value]="tag.id">{{ tag.group }} | {{ tag.name }} ({{ tag.id }})</option>
+      </ng-container>
+
+      <ng-container *ngIf="!tagsList">
+        <option value="" disabled selected>Loading...</option>
+      </ng-container>
+    </select>
+
+    <button
+        class="btn waves-effect waves-light"
+        [disabled]="_loading"
+        (click)="merge()">
+      <i class="material-icons left">call_merge</i> Merge
+    </button>
+
+  </div>

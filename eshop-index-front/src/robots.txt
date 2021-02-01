@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /account
+Allow: /account/login$
+Allow: /account/register$
+Allow: /account/password/reset$
+Allow: /account/register/activate/resend_email$
+Disallow: /admin$
+Disallow: /admin/
+Disallow: /game/*/vote/similar
+Disallow: /game/*/vote/tag

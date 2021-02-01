@@ -1,0 +1,54 @@
+<div class="card">
+  <ng-container *ngIf="(game || user) && review">
+    <div class="title-container">
+      <div *ngIf="game" class="card-image grey lighten-2 valign-wrapper">
+        <div class="image"
+          [style.background-image]="'url(http:' + game.game_image + ')'">
+        </div>
+      </div>
+
+      <div class="card-content" [class.full-width]="!game">
+        <div *ngIf="game" class="card-title">
+          <a class="link" [routerLink]="['/game', game.game_code]">{{ game.title }}</a>
+        </div>
+
+        <div class="header-container" *ngIf="user">
+          <a [routerLink]="['/user', user]">@{{ user }}</a>
+          <div class="date grey-text">
+            {{ review.date | date: 'short' }}{{ review.has_edited ? '*' : '' }}
+          </div>
+        </div>
+
+        <!-- REVIEW SCORE -->
+        <div class="recomendation-container" *ngIf="review.recomends">
+          <i class="material-icons">thumb_up</i>Recommended
+        </div>
+
+        <div class="recomendation-container" *ngIf="!review.recomends">
+          <i class="material-icons">thumb_down</i>Not recommended
+        </div>
+
+      </div>
+    </div>
+
+    <!-- REVIEW TEXT -->
+    <div class="text-container">{{ review.review_text }}</div>
+
+    <!-- VOTE -->
+    <div class="card-action">
+      <a class="waves-effect waves-orange btn-flat"
+          [class.selected]="review.vote === true"
+          [class.disabled]="_loadingThumbs"
+          (click)="clickUseful(true)">
+        <i class="material-icons left">thumb_up</i>{{ review.useful }}
+      </a>
+
+      <a class="waves-effect waves-orange btn-flat"
+          [class.selected]="review.vote === false"
+          [class.disabled]="_loadingThumbs"
+          (click)="clickUseful(false)">
+        <i class="material-icons left">thumb_down</i>{{ review.not_useful }}
+      </a>
+    </div>
+  </ng-container>
+</div>

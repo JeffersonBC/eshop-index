@@ -1,0 +1,74 @@
+@import 'media-queries';
+@import '~materialize-css/sass/components/color';
+
+
+$carousel-height: 400px;
+$carousel-height-small: 180px;
+
+
+.swiper-button-prev, .swiper-button-next {
+    height: 32px;
+    width: 32px;
+    background-color: white;
+    border-radius: 16px;
+    background-size: 12px;
+
+    &.swiper-button-disabled {
+        display: none;
+    }
+
+    @media #{$small-and-down} {
+        display: none;
+    }
+}
+
+.swiper-slide {
+    margin-bottom: 20px;
+
+    @media #{$small-and-down} {
+        margin-bottom: 32px;
+    }
+
+    .media-slide {
+        height: $carousel-height;
+        display: flex;
+        justify-content: center;
+        background-color: color("grey", "lighten-2");
+
+        @media #{$small-and-down} {
+            height: $carousel-height-small;
+        }
+
+        img {
+            margin: auto;
+            max-height: $carousel-height;
+            max-width: 100%;
+
+            @media #{$small-and-down} {
+                max-height: $carousel-height-small;
+            }
+        }
+
+        iframe {
+            margin: auto;
+            height: $carousel-height;
+            width: 100%;
+            max-width: 711px;
+
+            @media #{$small-and-down} {
+                height: $carousel-height-small;
+                max-width: 320px;
+            }
+        }
+    }
+}
+
+.loading {
+    height: $carousel-height;
+    width: 100%;
+    justify-content: space-around;
+
+    @media #{$small-and-down} {
+        height: $carousel-height-small;
+    }
+}

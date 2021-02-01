@@ -1,0 +1,54 @@
+<h2>{{ title }}</h2>
+
+<ng-container *ngIf="recomendations; else loading">
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="game-card"
+          *ngFor="let rec of recomendationsCurrentPage.slice(
+            0, (recomendationsCurrentPage.length + 1) / 2)">
+        <app-game-card-horizontal
+          [game]="rec.game"
+          [review]="rec.review"
+          [analyticsCategory]="'User profile - All ' + title">
+        </app-game-card-horizontal>
+      </div>
+    </div>
+
+    <div class="col s12 m6">
+      <div class="game-card"
+          *ngFor="let rec of recomendationsCurrentPage.slice(
+            (recomendationsCurrentPage.length + 1) / 2, recomendationsCurrentPage.length)">
+        <app-game-card-horizontal
+          [game]="rec.game"
+          [review]="rec.review"
+          [analyticsCategory]="'User profile - All ' + title">
+        </app-game-card-horizontal>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="recomendations.length == 0">
+    <div class="card-panel">This list is empty.</div>
+  </ng-container>
+
+  <!-- PAGINATION BUTTONS -->
+  <ul class="pagination">
+    <li [class.disabled]="currentPage <= 1"
+        [class.waves-effect]="currentPage > 1">
+      <a class="clickable" (click)="prevPage()"><i class="material-icons">chevron_left</i></a>
+    </li>
+
+    <li [class.active]="currentPage == pageNumber" *ngFor="let pageNumber of pages">
+      <a class="clickable" (click)="goToPage(pageNumber)">{{ pageNumber }}</a>
+    </li>
+
+    <li [class.disabled]="currentPage >= pages.length"
+        [class.waves-effect]="currentPage < pages.length">
+      <a class="clickable" (click)="nextPage()"><i class="material-icons">chevron_right</i></a>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading-circle></app-loading-circle>
+</ng-template>

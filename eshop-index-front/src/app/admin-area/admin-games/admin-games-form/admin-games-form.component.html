@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <h1 *ngIf="!isEditing">Add Game</h1>
+        <h1 *ngIf="isEditing">Edit Game</h1>
+
+        <form #form="ngForm" (ngSubmit)="send()">
+          <!-- TITLE -->
+          <div class="input-field">
+            <input id="game_title" #title="ngModel" name="title"
+              type="text"
+              [class.invalid]="!title.valid && title.touched"
+              [(ngModel)]="formInfo.title"
+              required maxlength="64">
+            <label for="game_title">Game Title</label>
+          </div>
+
+          <!-- GAME CODE -->
+          <div class="input-field">
+            <input id="game_code_unique" #gameCode="ngModel" name="game_code"
+              type="text"
+              [class.invalid]="!gameCode.valid && gameCode.touched"
+              [(ngModel)]="formInfo.gameCode"
+              required maxlength="5">
+            <label for="game_code_unique">Game Code Unique</label>
+          </div>
+
+          <h2>Game US</h2>
+          <!-- RELEASE US -->
+          <div class="input-field">
+            <input id="game_release_us" #releaseUS="ngModel" name="release_us"
+              type="text"
+              [class.invalid]="!releaseUS.valid && releaseUS.touched"
+              [(ngModel)]="formInfo.releaseUs"
+              required>
+            <label for="game_release_us">Release US</label>
+          </div>
+
+          <!-- BOXART US URL -->
+          <div class="input-field">
+            <input id="game_boxart_us" #boxartUsUrl="ngModel" name="boxart_us"
+              type="text"
+              [class.invalid]="!boxartUsUrl.valid && boxartUsUrl.touched"
+              [(ngModel)]="formInfo.boxartUsUrl"
+              required>
+            <label for="game_boxart_us">Boxart US URL</label>
+          </div>
+
+          <h2>Game EU</h2>
+          <!-- RELEASE EU -->
+          <div class="input-field">
+            <input id="game_release_eu" #releaseEu="ngModel" name="release_eu"
+              type="text"
+              [class.invalid]="!releaseEu.valid && releaseEu.touched"
+              [(ngModel)]="formInfo.releaseEu"
+              required>
+            <label for="game_release_eu">Release EU</label>
+          </div>
+
+          <!-- BOXART EU SQUARE URL -->
+          <div class="input-field">
+            <input id="game_boxart_eu_square_url" #boxartEuSquareUrl="ngModel" name="boxart_eu_square_url"
+              type="text"
+              [class.invalid]="!boxartEuSquareUrl.valid && boxartEuSquareUrl.touched"
+              [(ngModel)]="formInfo.boxartEuSquareUrl"
+              required>
+            <label for="game_boxart_eu_square_url">Boxart EU Square URL</label>
+          </div>
+
+          <!-- BOXART EU SQUARE SMALL URL -->
+          <div class="input-field">
+            <input id="game_boxart_eu_square_small_url" #boxartEuSquareSmallUrl="ngModel" name="boxart_eu_square_small_url"
+              type="text"
+              [class.invalid]="!boxartEuSquareSmallUrl.valid && boxartEuSquareSmallUrl.touched"
+              [(ngModel)]="formInfo.boxartEuSquareSmallUrl"
+              required>
+            <label for="game_boxart_eu_square_small_url">Boxart EU Square Small URL</label>
+          </div>
+
+          <!-- BOXART EU LARGE -->
+          <div class="input-field">
+            <input id="game_boxart_eu_large_url" #title="ngModel" name="boxart_eu_large_url"
+              type="text"
+              [class.invalid]="!title.valid && title.touched"
+              [(ngModel)]="formInfo.boxartEuLargeUrl"
+              required>
+            <label for="game_boxart_eu_large_url">Boxart EU Large URL</label>
+          </div>
+
+          <!-- BUTTONS CONTAINER -->
+          <div class="buttons-container right">
+            <button id="review-delete-button"
+                *ngIf="isEditing"
+                class="btn waves-effect waves-light left"
+                type="button" (click)="delete()">
+              <i class="material-icons left">delete_forever</i>Delete
+            </button>
+
+            <button id="review-send-button"
+                class="btn waves-effect waves-light"
+                type="submit">
+              <i class="material-icons left">send</i>Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

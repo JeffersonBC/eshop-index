@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col s12 m6">
+    <div class="title-button-container">
+      <h2>Liked</h2>
+      <a class="btn-flat waves-effect waves-orange"
+          [routerLink]="['recomendations', 'likes']">
+        <i class="material-icons left">remove_red_eye</i>See all
+      </a>
+    </div>
+
+    <ng-container *ngIf="likes; else loading">
+      <div class="game-card" *ngFor="let like of likes">
+        <app-game-card-horizontal
+          [game]="like.game"
+          [review]="like.review"
+          analyticsCategory="User profile">
+        </app-game-card-horizontal>
+      </div>
+
+      <ng-container *ngIf="likes.length == 0">
+        <div class="card-panel">There are no likes yet.</div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="col s12 m6">
+    <div class="title-button-container">
+      <h2>Disliked</h2>
+      <a class="btn-flat waves-effect waves-orange"
+          [routerLink]="['recomendations', 'dislikes']">
+        <i class="material-icons left">remove_red_eye</i>See all
+      </a>
+    </div>
+    <ng-container *ngIf="dislikes; else loading">
+      <div class="game-card" *ngFor="let dislike of dislikes">
+        <app-game-card-horizontal
+          [game]="dislike.game"
+          [review]="dislike.review"
+          analyticsCategory="User profile">
+        </app-game-card-horizontal>
+      </div>
+
+      <ng-container *ngIf="dislikes.length == 0">
+        <div class="card-panel">There are no dislikes yet.</div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loading-circle></app-loading-circle>
+</ng-template>

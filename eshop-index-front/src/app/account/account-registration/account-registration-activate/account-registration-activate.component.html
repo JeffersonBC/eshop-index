@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Account Activation</h1>
+
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+
+      <app-loading-circle *ngIf="success == null"></app-loading-circle>
+
+      <div class="card" *ngIf="success == true">
+        <div class="card-content">Your account was successfully activated!</div>
+        <div class="card-action">
+          <a routerLink="/account/login">
+            <i class="material-icons left">exit_to_app</i>Log in
+          </a>
+        </div>
+      </div>
+
+      <div class="card-panel" *ngIf="success == false">
+        Invalid link. If you received this link by email, it may no longer be valid (it should be valid until the end of day after the day you registered), or there was an error in our servers while processing it (if you think this is the case please try again later).
+      </div>
+    </div>
+  </div>
+</div>

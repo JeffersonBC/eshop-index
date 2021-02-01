@@ -1,0 +1,46 @@
+<div class="container">
+  <h1>Game Lists</h1>
+
+  <button class="btn waves-effect waves-light"
+      (click)="newSlot()"
+      [disabled]="_loading">
+    <i class="material-icons left">add</i>New Slot
+  </button>
+
+  <ul class="collection with-header" *ngFor="let slot of slots">
+    <li class="collection-header space-between">
+      <div class="collection-header-title">Slot {{ slot.order }}</div>
+
+      <div>
+        <button class="btn-flat waves-effect waves-orange"
+            [disabled]="_loading"
+            (click)="slotOrder(slot.id, 'up')">
+          <i class="material-icons">arrow_downward</i>
+        </button>
+
+        <button class="btn-flat waves-effect waves-orange"
+            [disabled]="_loading"
+            (click)="slotOrder(slot.id, 'down')">
+          <i class="material-icons">arrow_upward</i>
+        </button>
+
+        <button class="btn-flat waves-effect waves-orange"
+            [disabled]="_loading"
+            (click)="deleteSlot(slot.id)">
+          <i class="material-icons">delete</i>
+        </button>
+
+        <a class="btn-flat waves-effect waves-orange" [routerLink]="[slot.id, 'add']">
+          <i class="material-icons">add</i>
+        </a>
+      </div>
+    </li>
+
+    <li class="collection-item space-between" *ngFor="let list of slot.lists">
+      <div>{{ list.title }} (Frequency: {{ list.frequency }})</div>
+      <a class="btn-flat waves-effect waves-orange" [routerLink]="[slot.id, 'edit', list.id]">
+        <i class="material-icons">edit</i>
+      </a>
+    </li>
+  </ul>
+</div>

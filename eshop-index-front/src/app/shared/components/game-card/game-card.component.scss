@@ -1,0 +1,131 @@
+@import '~materialize-css/sass/components/color';
+@import 'media-queries';
+
+
+.date {
+    color: color("grey", "darken-1");
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 2px 0 4px;
+
+    .card-image {
+        height: 130px;
+        width: 260px;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+
+        img {
+            width: auto;
+            max-width: 100%;
+            max-height: 130px;
+        }
+
+        &:hover {
+            .card-title {
+                color: color("grey", "lighten-1");
+            }
+        }
+    }
+
+    .card-content {
+        padding: 8px 12px;
+        flex-grow: 1;
+    }
+
+    .card-title {
+        margin-bottom: 0;
+        font-size: 18px;
+        line-height: 22px;
+        padding: 8px 12px;
+        background-color: #000a;
+        color: white;
+    }
+
+    .card-discount {
+        position: absolute;
+        color: white;
+        background-color: #ef6c00;
+        right: 10px;
+        padding: 10px 6px 6px;
+        font-weight: 700;
+    }
+
+    .card-action {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 12px;
+
+        a {
+            color: #fff;
+            transition: color .5s;
+            margin: 0 !important;
+
+            &.btn-flat { padding: 0; }
+            &.loading { color: color("grey", "darken-3"); }
+
+            &:not(.selected) {
+                color: color("grey", "darken-1");
+                :hover { color: color("grey", "base"); }
+            }
+        }
+    }
+}
+
+.tags {
+    height: 48px;
+
+    .list-container {
+        max-height: 48px;
+        overflow: hidden;
+    }
+}
+
+.calendar-price-row {
+    margin-bottom: 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+
+    i { margin: auto 0; }
+    .icon-text { padding-left: 2px; }
+    .sale { text-decoration: line-through; }
+
+    div {
+        padding: 0;
+        display: flex;
+    }
+}
+
+.list-container {
+    display: flex;
+
+    &.tag-container {
+        margin-left: -4px;
+    }
+
+    .list-items {
+        display: flex;
+        flex-wrap: wrap;
+
+        span, div {
+            padding-right: 5px;
+            padding-left: 5px;
+            font-size: 12px;
+        }
+    }
+}
+
+.chip {
+    height: 20px;
+    line-height: 20px;
+    margin: 4px 0 0 4px;
+    border-radius: 0;
+    max-width: 96px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

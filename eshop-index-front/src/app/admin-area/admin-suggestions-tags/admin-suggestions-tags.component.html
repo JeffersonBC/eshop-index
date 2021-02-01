@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col s12">
+    <h1>Suggested Tags</h1>
+
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Icon</th>
+          <th>Title</th>
+          <th>Suggested Tags</th>
+          <th>All Tags</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let gameId of ObjectKeys(suggestions)">
+          <td class="game-icon"><img [src]="suggestions[gameId].game_image"></td>
+          <td>
+            <a [routerLink]="['/game', suggestions[gameId].game_code]">
+              {{ suggestions[gameId].title }}
+            </a>
+          </td>
+          <td class="full-width">
+            <button *ngFor="let tagId of ObjectKeys(suggestions[gameId].tags)"
+                class="chip btn"
+                (click)="confirmTag(
+                  gameId, suggestions[gameId].title,
+                  tagId, suggestions[gameId].tags[tagId])"
+                [disabled]="loading">
+              {{ suggestions[gameId].tags[tagId] }}
+            </button>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['/admin', 'games' ,'tags', gameId]">
+              <i class="material-icons">bookmark</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

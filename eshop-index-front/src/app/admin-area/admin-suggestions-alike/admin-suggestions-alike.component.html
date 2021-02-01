@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col s12">
+    <h1>Suggested Similar Games</h1>
+
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Icon 1</th>
+          <th>Title 1</th>
+          <th class="center-align">All Similar 1</th>
+
+          <th>Icon 2</th>
+          <th>Title 2</th>
+          <th class="center-align">All Similar 2</th>
+
+          <th class="center-align">Confirm</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let similar of suggestions">
+          <td class="game-icon"><img [src]="similar.game1.game_image"></td>
+          <td>
+            <a [routerLink]="['/game', similar.game1.game_code]">
+              {{ similar.game1.title }}
+            </a>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['/admin', 'games' ,'similar', similar.game1.id]">
+              <i class="material-icons">view_module</i>
+            </a>
+          </td>
+
+          <td class="game-icon"><img [src]="similar.game2.game_image"></td>
+          <td>
+            <a [routerLink]="['/game', similar.game2.game_code]">
+              {{ similar.game2.title }}
+            </a>
+          </td>
+          <td class="center-align">
+            <a [routerLink]="['/admin', 'games' ,'similar', similar.game2.id]">
+              <i class="material-icons">view_module</i>
+            </a>
+          </td>
+
+          <td class="center-align">
+            <button class="btn-flat" [class.disabled]="loading"
+                (click)="confirmAlike(similar.game1.id, similar.game1.title, similar.game2.id, similar.game2.title)">
+              <i class="material-icons">done</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="card">
+  <a [routerLink]="['/game', game.game_code]"
+      class="card-image grey lighten-2" (appDeferLoad)="deferLoad()">
+    <ng-container *ngIf="showImage">
+      <img [src]="game.game_image" [alt]="game.title">
+    </ng-container>
+
+    <div class="card-discount" *ngIf="game.discount_percent">
+      {{ game.discount_percent * 100 | number:'1.0-0' }}%
+    </div>
+
+    <div class="card-title">
+      <div class="link">{{ game.title }}</div>
+    </div>
+  </a>
+
+  <div class="card-content">
+    <div class="calendar-price-row">
+      <!-- RELEASE DATES -->
+      <div>
+        <i class="material-icons tiny">event</i>
+        <span class="date icon-text">{{ region }}{{ date | date: 'mediumDate' }}</span>
+      </div>
+
+      <div *ngIf="game.price != null">
+        <i class="material-icons tiny">attach_money</i>
+        <span class="date" [class.sale]="game.sale_price">
+          {{ game.price | currencyCountry : gameService.country }}
+        </span>
+
+        <span class="date icon-text" *ngIf="game.sale_price">
+          {{ game.sale_price | currencyCountry : gameService.country }}
+        </span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TAGS -->
+    <div class="tags">
+      <div class="list-container tag-container">
+        <div class="list-items">
+          <span class="chip" *ngFor="let tag of game.tags">{{ tag }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-action">
+    <!-- CLASSIFICATION BUTTONS -->
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.recomends === true"
+        [class.loading]="_loadingThumbs"
+        (click)="clickRecomendation(true)">
+      <i class="material-icons left">thumb_up</i>{{ game.likes }}
+    </a>
+
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.recomends === false"
+        [class.loading]="_loadingThumbs"
+        (click)="clickRecomendation(false)">
+      <i class="material-icons left">thumb_down</i>{{ game.dislikes }}
+    </a>
+
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.has_review === true"
+        [routerLink]="['account', 'review', game.game_code]">
+      <i class="material-icons left">feedback</i>{{ game.reviews }}
+    </a>
+
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.has_wish === true"
+        [class.loading]="_loadingThumbs"
+        (click)="clickWishlist()">
+      <i class="material-icons">stars</i>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,192 @@
+<div class="container">
+  <h1 *ngIf="!_isEditing">Add Game List</h1>
+  <h1 *ngIf="_isEditing">Edit Game List</h1>
+
+  <form #form="ngForm" (ngSubmit)="send()">
+    <div class="input-field">
+      <input id="game_list_title" #title="ngModel" name="game_list_title"
+        [class.invalid]="!title.valid && title.touched"
+        [(ngModel)]="gameListForm.title"
+        type="text"
+        required
+        maxlength="128">
+      <label for="game_list_title">Game List Title</label>
+    </div>
+
+    <div class="input-field">
+      <input id="game_list_frequency" #frequency="ngModel" name="game_list_frequency"
+        [class.invalid]="!frequency.valid && frequency.touched"
+        [(ngModel)]="gameListForm.frequency"
+        type="number"
+        required>
+      <label for="game_list_frequency">Frequency</label>
+    </div>
+
+    <div class="input-field">
+      <input id="game_list_query_json" name="game_list_query_json"
+        [(ngModel)]="gameListForm.query_json"
+        type="text"
+        [disabled]="true">
+      <label for="game_list_query_json">Query JSON</label>
+    </div>
+
+    <!-- LIST QUERY -->
+    <h2>List Query</h2>
+    <div class="row">
+      <div class="input-field col s12 m6">
+        <select id="sort_by_select" name="sort_by_select"
+            materialize="material_select"
+            [(ngModel)]="listQueryForm.orderBy"
+            (ngModelChange)="updateJSON()">
+
+          <option *ngFor="let key of objectKeys(gameService.orderByValues)"
+            [value]="key">{{ gameService.orderByValues[key] }}</option>
+        </select>
+        <label for="sort_by_select">Sort by</label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <select id="release_status_select" name="release_status_select"
+            materialize="material_select"
+            [(ngModel)]="listQueryForm.releasedStatus"
+            (ngModelChange)="updateJSON()">
+          <option value="">All games</option>
+          <option value="released">Released games only</option>
+          <option value="unreleased">Unreleased games only</option>
+          <option value="latest">Games released between today and 4 months ago</option>
+          <option value="between">Choose date range</option>
+        </select>
+        <label for="release_status_select">Release date</label>
+      </div>
+
+      <ng-container *ngIf="listQueryForm.releasedStatus == 'between'">
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input id="date_from" name="date_from" type="text"
+              [(ngModel)]="listQueryForm.dateFrom"
+              (ngModelChange)="updateJSON()"
+              materialize="pickadate"
+              [materializeParams]="formService.dateParams">
+            <label for="date_from">From</label>
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input id="date_to" name="date_to" type="text"
+              [(ngModel)]="listQueryForm.dateTo"
+              (ngModelChange)="updateJSON()"
+              materialize="pickadate"
+              [materializeParams]="formService.dateParams">
+            <label for="date_to">To</label>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="input-field col s12 m6">
+        <input id="price_from" name="price_from" type="number"
+          [(ngModel)]="listQueryForm.priceFrom"
+          (ngModelChange)="updateJSON()">
+        <label for="price_from">Price from</label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <input id="price_to" name="price_to" type="number"
+          [(ngModel)]="listQueryForm.priceTo"
+          (ngModelChange)="updateJSON()">
+        <label for="price_to">Price to</label>
+      </div>
+
+      <div class="col s12 m6">
+        <label for="min_discount">Minimum discount</label>
+        <div class="row margin-bottom-0">
+          <div class="col s9 m10">
+            <input id="min_discount" name="min_discount" type="range"
+              [min]="0" [max]="100"
+              [(ngModel)]="listQueryForm.minDiscount"
+              (ngModelChange)="updateJSON()">
+          </div>
+
+          <div class="col s3 m2 text-center">{{ listQueryForm.minDiscount }}</div>
+        </div>
+      </div>
+
+      <div class="col s12 m6">
+        <input id="discount_only" name="discount_only" type="checkbox"
+          [(ngModel)]="listQueryForm.onSaleOnly"
+          (ngModelChange)="updateJSON()">
+        <label for="discount_only">Discounted games only</label>
+      </div>
+
+      <div class="col s12 m6">
+        <input id="highlight_only" name="highlight_only" type="checkbox"
+          [(ngModel)]="listQueryForm.highlightsOnly"
+          (ngModelChange)="updateJSON()">
+        <label for="highlight_only">High rated games only</label>
+      </div>
+
+      <div class="col s12 m6">
+        <input id="unrated_only" name="unrated_only" type="checkbox"
+          [(ngModel)]="listQueryForm.unratedOnly"
+          (ngModelChange)="updateJSON()">
+        <label for="unrated_only">Games not yet rated by the user only</label>
+      </div>
+
+      <div class="col s12 m6">
+        <div class="input-field">
+          <input id="game_qtd" name="game_qtd" type="number"
+            [(ngModel)]="listQueryForm.qtd"
+            (ngModelChange)="updateJSON()">
+          <label for="game_qtd">Quantity</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAGS -->
+    <ul class="tags-collapsible collapsible expandable" materialize="collapsible" [materializeParams]="[{accordion: false}]">
+      <li>
+        <h3 class="collapsible-header">Tags<i class="material-icons right">expand_more</i></h3>
+
+        <div class="collapsible-body">
+          <ng-container *ngIf="allTagsByGroup">
+            <span>*If more than one tag is selected, only games with all the selected tags will be shown.</span>
+
+            <ul class="tag-group-container collapsible expandable"
+                materialize="collapsible"
+                [materializeParams]="[{accordion: false}]">
+              <li *ngFor="let keyValue of allTagsByGroup | keyvalue">
+                <h4 class="collapsible-header">
+                  {{ keyValue.key }}<i class="material-icons right">expand_more</i>
+                </h4>
+
+                <div class="collapsible-body">
+                  <button *ngFor="let tag of keyValue.value"
+                      type="button"
+                      class="chip btn"
+                      [ngClass]="{ 'orange darken-3 white-text': listQueryForm.tags[tag.id] }"
+                      (click)="clickTag(tag.id)">
+                    {{ tag.name }}
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+      </li>
+    </ul>
+
+    <!-- SUBMIT BUTTONS -->
+    <div class="buttons-container right">
+      <button *ngIf="_isEditing"
+          type="button"
+          class="btn waves-effect waves-light left"
+          (click)="delete()">
+        <i class="material-icons left">delete_forever</i>Delete
+      </button>
+
+      <button type="submit" class="btn waves-effect waves-light">
+        <i class="material-icons left">send</i>Send
+      </button>
+    </div>
+  </form>
+</div>

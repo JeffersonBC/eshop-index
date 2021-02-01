@@ -1,0 +1,9 @@
+@import 'media-queries';
+
+.games-container {
+    margin: 48px 32px 0;
+
+    @media #{$small-and-down} {
+        margin: 24px 0;
+    }
+}

@@ -1,0 +1,55 @@
+<div class="container">
+  <h1>Similar Games</h1>
+
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <app-game-card-horizontal *ngIf="game" [game]="game"></app-game-card-horizontal>
+    </div>
+  </div>
+
+  <!-- ADD -->
+  <h2>Add</h2>
+  <select
+      materialize="material_select"
+      [disabled]="!gamesList || _loading"
+      [(ngModel)]="selectedGameId">
+    <ng-container *ngIf="gamesList">
+      <option value="" disabled selected>Choose your option</option>
+      <option *ngFor="let game of gamesList" [value]="game.id">{{ game.title }}</option>
+    </ng-container>
+
+    <ng-container *ngIf="!gamesList">
+      <option value="" disabled selected>Loading...</option>
+    </ng-container>
+  </select>
+
+  <button
+      class="btn waves-effect waves-light"
+      [disabled]="_loading"
+      (click)="postSimilar()">
+    Add
+  </button>
+
+  <!-- CONFIRMED -->
+  <h2>Confirmed</h2>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th class="center-align">Remove</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of confirmedList; let index = index">
+        <td class="full-width">{{ game.title }}</td>
+        <td class="center-align">
+          <button
+              class="btn-flat waves-effect waves-orange"
+              (click)="deleteSimilar(index)"
+              [class.disabled]="_loading">
+            <i class="material-icons">clear</i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

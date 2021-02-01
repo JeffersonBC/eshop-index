@@ -1,0 +1,15 @@
+@import 'media-queries';
+
+
+.recomendation-container {
+    margin-bottom: 12px;
+
+    .user {
+        display: flex;
+        justify-content: space-between;
+
+        .username {
+            font-size: 18px;
+        }
+    }
+}

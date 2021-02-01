@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>Edit Tags</h1>
+
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <app-game-card-horizontal *ngIf="game"
+        [game]="game">
+      </app-game-card-horizontal>
+    </div>
+  </div>
+
+  <div class="tag-group-container" *ngFor="let keyValue of tags | keyvalue">
+    <h3>{{ keyValue.key }}</h3>
+
+    <ng-container *ngFor="let tag of keyValue.value">
+      <button *ngIf="confirmedTags?.nintendo[tag.id]"
+          class="chip btn waves-effect waves-orange"
+          [disabled]="loadingTag[tag.id]"
+          (click)="unconfirmNintedoTag(tag.id)">
+        <i class="material-icons left">delete</i>
+        <b *ngIf="confirmedTags?.nintendo[tag.id]">(N) </b>{{ tag.name }}
+      </button>
+
+      <button
+          [ngClass]="{ 'orange darken-3 white-text': confirmedTags?.staff[tag.id] }"
+          class="chip btn"
+          (click)="clickTag(tag.id)"
+          [disabled]="loadingTag[tag.id]">
+        {{ tag.name }}
+      </button>
+    </ng-container>
+
+  </div>
+
+</div>

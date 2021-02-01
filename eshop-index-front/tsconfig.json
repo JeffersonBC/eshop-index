@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "@components": ["app/shared/components"],
+      "@components/*": ["app/shared/components/*"],
+      "@directives": ["app/shared/directives"],
+      "@directives/*": ["app/shared/directives/*"],
+      "@env/*": ["environments/*"],
+      "@guards": ["app/shared/guards"],
+      "@guards/*": ["app/shared/guards/*"],
+      "@interceptors": ["app/shared/interceptors"],
+      "@interceptors/*": ["app/shared/interceptors/*"],
+      "@models": ["app/shared/models"],
+      "@models/*": ["app/shared/models/*"],
+      "@pipes": ["app/shared/pipes"],
+      "@pipes/*": ["app/shared/pipes/*"],
+      "@resolvers": ["app/shared/resolvers"],
+      "@resolvers/*": ["app/shared/resolvers/*"],
+      "@services": ["app/shared/services"],
+      "@services/*": ["app/shared/services/*"],
+      "@shared": ["app/shared"],
+      "@shared/*": ["app/shared/*"],
+      "@style/": ["app/shared/style/"],
+      "@style/*": ["app/shared/style/*"],
+      "@sharedcomponents": ["app/shared/components"],
+      "@sharedcomponents/*": ["app/shared/components/*"],
+      "@utils": ["app/shared/utils"],
+      "@utils/*": ["app/shared/utils/*"],
+    }
+  }
+}

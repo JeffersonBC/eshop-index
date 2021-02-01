@@ -1,0 +1,9 @@
+<div class="card">
+  <a [routerLink]="['/user', user.username]">@{{ user.username }}</a>
+
+  <div class="statistics-container right">
+    <div><i class="material-icons left">thumb_up</i>{{ user.likes }}</div>
+    <div><i class="material-icons left">thumb_down</i>{{ user.dislikes }}</div>
+    <div><i class="material-icons left">feedback</i>{{ user.reviews }}</div>
+  </div>
+</div>

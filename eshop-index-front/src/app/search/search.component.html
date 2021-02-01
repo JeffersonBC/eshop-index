@@ -1,0 +1,168 @@
+<div class="container">
+  <h1>Search</h1>
+
+  <form materialize (ngSubmit)="search()">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="search_text" name="search_text"
+          type="text"
+          [(ngModel)]="searchForm.searchText">
+        <label for="search_text">Search text</label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <select id="sort_by_select" name="sort_by_select"
+            materialize="material_select"
+            [(ngModel)]="searchForm.orderBy">
+
+          <option *ngFor="let key of objectKeys(gameService.orderByValues)"
+            [value]="key">{{ gameService.orderByValues[key] }}</option>
+        </select>
+        <label for="sort_by_select">Sort by</label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <select id="release_status_select" name="release_status_select"
+            materialize="material_select"
+            [(ngModel)]="searchForm.releaseStatus">
+          <option value="">All games</option>
+          <option value="released">Released games only</option>
+          <option value="unreleased">Unreleased games only</option>
+          <option value="between">Choose date range</option>
+        </select>
+        <label for="release_status_select">Release date</label>
+      </div>
+
+      <ng-container *ngIf="searchForm.releaseStatus == 'between'">
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input id="date_from" name="date_from" type="text"
+              [(ngModel)]="searchForm.dateFrom"
+              materialize="pickadate"
+              [materializeParams]="formService.dateParams">
+            <label for="date_from">Date from</label>
+          </div>
+        </div>
+
+        <div class="col s12 m6">
+          <div class="input-field">
+            <input id="date_to" name="date_to" type="text"
+              [(ngModel)]="searchForm.dateTo"
+              materialize="pickadate"
+              [materializeParams]="formService.dateParams">
+            <label for="date_to">Date to</label>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="input-field col s12 m6">
+        <input id="price_from" name="price_from" type="number"
+          [(ngModel)]="searchForm.priceFrom">
+        <label for="price_from">Price from</label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <input id="price_to" name="price_to" type="number"
+          [(ngModel)]="searchForm.priceTo">
+        <label for="price_to">Price to</label>
+      </div>
+
+      <div class="col s12 m6">
+        <label for="min_discount">Minimum discount</label>
+        <div class="row margin-bottom-0">
+          <div class="col s9 m10">
+            <input id="min_discount" name="min_discount" type="range"
+              [min]="0" [max]="100"
+              [(ngModel)]="searchForm.minDiscount"/>
+          </div>
+
+          <div class="col s3 m2 text-center">{{ searchForm.minDiscount }}</div>
+        </div>
+      </div>
+
+      <div class="col s12 m6">
+        <input id="discount_only" name="discount_only" type="checkbox"
+          [(ngModel)]="searchForm.onSaleOnly"/>
+        <label for="discount_only">Discounted games only</label>
+      </div>
+
+      <div class="col s12 m6">
+        <input id="highlight_only" name="highlight_only" type="checkbox"
+          [(ngModel)]="searchForm.highlightsOnly"/>
+        <label for="highlight_only">Highlighted games only</label>
+      </div>
+
+      <div class="col s12 m6" *ngIf="loginEmitService.checkCurrentStatusLogin()">
+        <input id="unrated_only" name="unrated_only" type="checkbox"
+          [(ngModel)]="searchForm.unratedOnly"/>
+        <label for="unrated_only">Games I haven't yet rated only</label>
+      </div>
+
+      <div class="col s12 m6">
+        <label for="pages_to_search">Max pages to show</label>
+        <div class="row">
+          <div class="col s9 m10">
+            <input id="pages_to_search" name="pages_to_search" type="range"
+              [min]="1" [max]="16"
+              [(ngModel)]="searchForm.pages"/>
+          </div>
+
+          <div class="col s3 m2 text-center">{{ searchForm.pages }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAGS -->
+    <ul class="tags-collapsible collapsible expandable" materialize="collapsible" [materializeParams]="[{accordion: false}]">
+      <li>
+        <h2 class="collapsible-header">Tags<i class="material-icons right">expand_more</i></h2>
+
+        <div class="collapsible-body">
+          <ng-container *ngIf="allTagsByGroup; else loading">
+            <span>*If more than one tag is selected, only games with all the selected tags will be shown.</span>
+
+            <ul class="tag-group-container collapsible expandable"
+                materialize="collapsible"
+                [materializeParams]="[{accordion: false}]">
+              <li *ngFor="let keyValue of allTagsByGroup | keyvalue">
+                <h3 class="collapsible-header">
+                  {{ keyValue.key }}<i class="material-icons right">expand_more</i>
+                </h3>
+
+                <div class="collapsible-body">
+                  <button *ngFor="let tag of keyValue.value"
+                      type="button"
+                      class="chip btn"
+                      [ngClass]="{ 'orange darken-3 white-text': searchForm.tags[tag.id] }"
+                      (click)="clickTag(tag.id)">
+                    {{ tag.name }}
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+      </li>
+    </ul>
+
+    <div class="button-container">
+      <button class="btn waves-effect waves-light" type="submit" [disabled]="_loading">
+        <i class="material-icons left">search</i>Search
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+<div class="search-result">
+  <app-game-list *ngIf="_searchedOnce"
+    [games]="searchResults"
+    analyticsCategory="Search"
+    emptyMessage="No games found for the searched parameters">
+  </app-game-list>
+</div>
+
+<ng-template #loading>
+  <app-loading-circle></app-loading-circle>
+</ng-template>

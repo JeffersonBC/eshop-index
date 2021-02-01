@@ -1,0 +1,16 @@
+@import 'media-queries';
+
+
+.title-button-container {
+  @media #{$medium-and-up} {
+    margin-top: 16px;
+  }
+}
+
+.tag-group-container {
+  .chip {
+    border-radius: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+}

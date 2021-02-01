@@ -1,0 +1,38 @@
+<ng-container *ngIf="games; else loading">
+  <div #swiperContainer class="swiper-container" [swiper]="config" [(index)]="index">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let game of games">
+        <div>
+          <app-game-card
+            [game]="game"
+            [analyticsCategory]="analyticsCategory">
+          </app-game-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev z-depth-3"></div>
+    <div class="swiper-button-next z-depth-3"></div>
+  </div>
+
+  <ng-container *ngIf="!games.length && emptyMessage">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m8 offset-m2">
+          <div class="card-panel">
+            {{ emptyMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+<ng-template #loading>
+  <div class="valign-wrapper loading">
+    <app-loading-circle></app-loading-circle>
+  </div>
+</ng-template>

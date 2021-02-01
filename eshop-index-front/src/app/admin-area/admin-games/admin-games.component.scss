@@ -1,0 +1,14 @@
+@import '~materialize-css/sass/components/color';
+
+
+.table-line{
+    line-height: 1;
+}
+
+.highlight {
+    padding: 0;
+
+    &.selected {
+        color: color("orange", "darken-3");
+    }
+}

@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>Merge Games</h1>
+
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <app-game-card-horizontal *ngIf="game" [game]="game"></app-game-card-horizontal>
+    </div>
+  </div>
+
+  <h2>Game to merge with</h2>
+  <select
+      materialize="material_select"
+      [disabled]="!gamesList || _loading"
+      [(ngModel)]="selectedGameId">
+    <ng-container *ngIf="gamesList">
+      <option value="" disabled selected>Choose your option</option>
+      <option *ngFor="let game of gamesList" [value]="game.id">{{ game.title }} ({{ game.id }})</option>
+    </ng-container>
+
+    <ng-container *ngIf="!gamesList">
+      <option value="" disabled selected>Loading...</option>
+    </ng-container>
+  </select>
+
+  <button
+      class="btn waves-effect waves-light"
+      [disabled]="_loading"
+      (click)="merge()">
+    <i class="material-icons left">call_merge</i> Merge
+  </button>
+
+</div>

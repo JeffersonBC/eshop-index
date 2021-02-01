@@ -1,0 +1,58 @@
+<div class="container">
+  <h2>All Reviews</h2>
+
+  <ng-container *ngIf="reviewsCurrentPage; else loading">
+    <div class="row" *ngIf="reviewsCurrentPage.length; else emptyReviews">
+      <div class="col s12 m6">
+        <app-review-card-horizontal
+          *ngFor="let review of reviewsCurrentPage.slice(
+            0, (reviewsCurrentPage.length + 1) / 2)"
+          [user]="review.user"
+          [review]="review"
+          analyticsCategory="Game Page - All Reviews"
+          [gameTitle]="game.title">
+        </app-review-card-horizontal>
+      </div>
+
+      <div class="col s12 m6">
+        <app-review-card-horizontal
+          *ngFor="let review of reviewsCurrentPage.slice(
+            (reviewsCurrentPage.length + 1) / 2, reviewsCurrentPage.length)"
+          [user]="review.user"
+          [review]="review"
+          analyticsCategory="Game Page - All Reviews"
+          [gameTitle]="game.title">
+        </app-review-card-horizontal>
+      </div>
+    </div>
+
+    <!-- EMPTY MESSAGE -->
+    <ng-template #emptyReviews>
+      <div class="row"><div class="col s12 m8 offset-m2">
+        <div class="card-panel">There are no reviews for this game yet.</div>
+      </div></div>
+    </ng-template>
+
+    <!-- PAGINATION BUTTONS -->
+    <ul class="pagination">
+      <li [class.disabled]="currentPage <= 1"
+          [class.waves-effect]="currentPage > 1">
+        <a class="clickable" (click)="prevPage()"><i class="material-icons">chevron_left</i></a>
+      </li>
+
+      <li [class.active]="currentPage == pageNumber" *ngFor="let pageNumber of pages">
+        <a class="clickable" (click)="goToPage(pageNumber)">{{ pageNumber }}</a>
+      </li>
+
+      <li [class.disabled]="currentPage >= pages.length"
+          [class.waves-effect]="currentPage < pages.length">
+        <a class="clickable" (click)="nextPage()"><i class="material-icons">chevron_right</i></a>
+      </li>
+    </ul>
+
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <app-loading-circle></app-loading-circle>
+</ng-template>

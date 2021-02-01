@@ -1,0 +1,98 @@
+<div class="card center-align">
+  <div class="img-container grey lighten-2">
+    <img [src]="game.game_image" [alt]="game.title">
+  </div>
+
+  <div class="card-content">
+    <div class="list-container">
+      <i class="material-icons left">event</i>
+      <div class="list-items">
+        <span *ngIf="game.release_us">
+          NA: {{ game.release_us | date: 'mediumDate' }}
+        </span>
+        <span *ngIf="game.release_eu">
+          EU: {{ game.release_eu | date: 'mediumDate' }}
+        </span>
+      </div>
+    </div>
+
+    <ng-container *ngIf="prices">
+      <div class="divider"></div>
+
+      <div class="list-container">
+        <i class="material-icons left">attach_money</i>
+        <div class="list-items width-100">
+          <div class="row width-100">
+            <div class="col s12 m6 display-flex" *ngFor="let country of ObjectKeys(prices)">
+              <img class="flag-icon flex-shrink-0" [src]="'/assets/flags/' + country + '.png'" [alt]="country">
+              <div class="display-flex flex-column">
+                <div>
+                  <span [class.sale]="prices[country].sale_price">
+                    {{ prices[country].price | currencyCountry : country }}
+                  </span>
+
+                  <span *ngIf="prices[country].sale_price">
+                    {{ prices[country].sale_price | currencyCountry : country }}
+                  </span>
+                </div>
+
+                <span class="grey-text" *ngIf="prices[country].sale_to">
+                  (Until {{ prices[country].sale_to | date: 'mediumDate' }})
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="divider"></div>
+
+    <div class="list-container">
+      <i class="material-icons left">shopping_basket</i>
+      <div class="list-items">
+        <a class="eshop-link btn-flat waves-effect waves-orange" target="_blank" [href]="'https://www.nintendo.com/games/detail/' + game.link_us" *ngIf="game.link_us">NA eShop</a>
+        <a class="eshop-link btn-flat waves-effect waves-orange" target="_blank" [href]="'https://www.nintendo.co.uk' + game.link_eu" *ngIf="game.link_eu">EU eShop</a>
+      </div>
+    </div>
+
+    <ng-container *ngIf="game.game_description">
+      <div class="divider"></div>
+      <div>{{ game.game_description }}</div>
+    </ng-container>
+  </div>
+
+  <div class="card-action">
+    <!-- UP VOTE -->
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.recomends === true"
+        [class.disabled]="_loadingThumbs"
+        (click)="clickRecomendation(true)">
+      <i class="material-icons left">thumb_up</i>{{ game.likes }}
+    </a>
+
+    <!-- DOWN VOTE -->
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.recomends === false"
+        [class.disabled]="_loadingThumbs"
+        (click)="clickRecomendation(false)">
+      <i class="material-icons left">thumb_down</i>{{ game.dislikes }}
+    </a>
+
+    <!-- REVIEW -->
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.has_review === true"
+        [routerLink]="['/', 'account', 'review', game.game_code]">
+      <i class="material-icons left">feedback</i>{{ game.reviews }}
+    </a>
+
+    <!-- WISHLIST -->
+    <a class="waves-effect waves-orange btn-flat"
+        [class.selected]="game.has_wish === true"
+        [class.loading]="_loadingThumbs"
+        (click)="clickWishlist()">
+      <i class="material-icons">stars</i>
+    </a>
+  </div>
+</div>

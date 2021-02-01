@@ -1,0 +1,34 @@
+@import 'media-queries';
+@import '~materialize-css/sass/components/color';
+
+
+.swiper-pagination-bullets {
+    height: 12px;
+    width: 100%;
+    bottom: -2px !important;
+
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        border-radius: 100%;
+        background-color: color("grey", "darken-3");
+        opacity: .8;
+        top: -6px;
+        position: relative;
+
+        @media #{$small-and-down} {
+            width: 16px;
+            height: 16px;
+            top: -8px;
+        }
+    }
+
+    .swiper-pagination-bullet-dark {
+        background-color: color("grey", "darken-4");;
+    }
+
+    .swiper-pagination-bullet-light {
+        background-color: color("grey", "lighten-1");;
+    }
+}

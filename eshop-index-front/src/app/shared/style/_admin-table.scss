@@ -1,0 +1,16 @@
+.full-width {
+    width: 100%;
+}
+
+td {
+    padding: 4px;
+}
+
+.game-icon {
+    display: flex;
+    justify-content: space-around;
+
+    img {
+        height: 46px;
+    }
+}

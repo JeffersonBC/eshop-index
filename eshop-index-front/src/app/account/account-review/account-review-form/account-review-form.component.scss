@@ -1,0 +1,19 @@
+.score-container {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 20px;
+}
+
+.buttons-container {
+  margin-top: 32px;
+}
+
+.input-field {
+  margin-top: 28px;
+}
+
+.textarea-label {
+  &.active {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,12 @@
+@import 'media-queries';
+
+
+.title-button-container {
+  @media #{$medium-and-up} {
+    margin-top: 16px;
+  }
+}
+
+.game-card {
+    margin: 0 0 8px;
+}

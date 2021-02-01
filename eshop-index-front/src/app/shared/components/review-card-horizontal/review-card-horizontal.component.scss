@@ -1,0 +1,90 @@
+@import '~materialize-css/sass/components/color';
+@import 'media-queries';
+
+
+$image-width: 52px;
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0 0;
+
+    .card-image {
+        .image {
+            width: $image-width;
+            height: $image-width;
+            background-size: cover;
+        }
+    }
+
+    .card-content {
+        padding: 4px 8px 0;
+        flex-grow: 1;
+        max-width: calc(100% - #{$image-width});
+
+        &.full-width {
+            max-width: unset;
+            width: 100%;
+        }
+    }
+
+    .card-title {
+        margin-bottom: 0;
+        font-size: 18px;
+        line-height: 26px;
+
+        // Overflow ellipsis
+        height: 26px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .link {
+            color: black;
+            &:hover { color: color("grey", "darken-2"); }
+        }
+    }
+
+    .card-action {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0;
+        border-top: 0;
+
+        a {
+            margin-right: 0 !important;
+
+            &:not(.selected) { color: color("grey", "darken-1"); }
+        }
+    }
+}
+
+.title-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    a { font-size: 18px; }
+}
+
+.recomendation-container {
+    display: flex;
+    line-height: 24px;
+    margin-bottom: 6px;
+    align-items: center;
+
+    i {
+        font-size: 20px;
+        margin-right: 15px;
+    }
+}
+
+.text-container {
+    padding: 4px 8px;
+}

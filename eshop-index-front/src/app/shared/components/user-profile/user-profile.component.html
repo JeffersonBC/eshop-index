@@ -1,0 +1,27 @@
+<div class="container">
+
+  <div class="username-container">
+    <h1>@{{ user.username }}</h1>
+    <ng-container *ngIf="showFollowButton">
+      <button class="btn-flat waves-effect waves-orange"
+          (click)="clickFollow()"
+          [disabled]="_loadingFollow">
+
+        <span *ngIf="user.is_following == false">
+          <i class="material-icons left">notifications_active</i>Follow user</span>
+
+        <span *ngIf="user.is_following == true">
+          <i class="material-icons left">notifications_off</i>Unfollow user</span>
+      </button>
+    </ng-container>
+  </div>
+
+  <h2 *ngIf="user.first_name">{{ user.first_name + ' ' + user.last_name }}</h2>
+
+  <router-outlet></router-outlet>
+
+</div>
+
+<ng-template #loading>
+  <app-loading-circle></app-loading-circle>
+</ng-template>

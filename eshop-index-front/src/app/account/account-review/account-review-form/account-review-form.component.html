@@ -1,0 +1,62 @@
+<form materialize #form="ngForm" (ngSubmit)="send()">
+
+    <label for="review-recomends">Recomend this game</label>
+    <div id="review-recomends" class="recomends-container">
+      <input id="review-recomends-radio-like"
+        name="recomends-like"
+        type="radio"
+        [(ngModel)]="formInfo.recomends"
+        [value]="true"
+        [disabled]="_loading ? true : null"
+        required />
+      <label for="review-recomends-radio-like">
+        <i class="material-icons left">thumb_up</i>
+      </label>
+
+      <input id="review-recomends-radio-dislike"
+        name="recomends-dislike"
+        type="radio"
+        [(ngModel)]="formInfo.recomends"
+        [value]="false"
+        [disabled]="_loading ? true : null"
+        required />
+      <label for="review-recomends-radio-dislike">
+        <i class="material-icons left">thumb_down</i>
+      </label>
+    </div>
+
+    <div class="input-field">
+      <textarea id="review-textarea" #text="ngModel"
+        materialize="characterCounter"
+        data-length="1000"
+        class="materialize-textarea"
+        [class.invalid]="!text.valid && text.touched"
+        name="review_text"
+        [(ngModel)]="formInfo.review_text"
+        [maxLength]="1000"
+        required>
+      </textarea>
+      <label class="textarea-label" for="review-textarea">Review text</label>
+    </div>
+
+  <div class="buttons-container">
+    <div class="right">
+      <button id="review-delete-button"
+          *ngIf="isEditing"
+          class="btn waves-effect waves-light left"
+          type="button"
+          (click)="delete()"
+          [disabled]="_loading">
+        <i class="material-icons left">delete_forever</i>Delete
+      </button>
+
+      <button id="review-send-button"
+          class="btn waves-effect waves-light"
+          type="submit"
+          [disabled]="_loading">
+        <i class="material-icons left">send</i>Send
+      </button>
+    </div>
+  </div>
+
+</form>

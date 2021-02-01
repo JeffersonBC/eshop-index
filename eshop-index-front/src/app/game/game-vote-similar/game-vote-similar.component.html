@@ -1,0 +1,63 @@
+<div class="container">
+
+  <!-- VOTE -->
+  <h2>Vote for similar games</h2>
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <select
+          materialize="material_select"
+          [disabled]="!filteredGamesList || _loading"
+          [(ngModel)]="selectedGameCode">
+        <ng-container *ngIf="filteredGamesList">
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let game of filteredGamesList" [value]="game.game_code">{{ game.title }}</option>
+        </ng-container>
+
+        <ng-container *ngIf="!filteredGamesList">
+          <option value="" disabled selected>Loading...</option>
+        </ng-container>
+      </select>
+
+      <button
+          class="btn waves-effect waves-light right"
+          [disabled]="!selectedGameCode || _loading"
+          (click)="postVote()">
+        Vote
+      </button>
+    </div>
+  </div>
+
+  <!-- VOTED -->
+  <h2>Voted</h2>
+  <ng-container *ngIf="votedList; else loading">
+    <table *ngIf="votedList.length; else emptyVoted">
+      <thead>
+        <th class="full-width">Name</th>
+        <th class="center-align">Remove</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let game of votedList; let index = index">
+          <td>{{ game.title }}</td>
+          <td class="center-align">
+            <button
+                class="btn-flat waves-effect waves-orange"
+                (click)="deleteVote(index)"
+                [class.disabled]="_loading">
+              <i class="material-icons">clear</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #emptyVoted>
+      <div class="row"><div class="col s12 m8 offset-m2">
+        <div class="card-panel">You haven't voted for a game similar to this one yet.</div>
+      </div></div>
+    </ng-template>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <app-loading-circle></app-loading-circle>
+</ng-template>

@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <h1 *ngIf="!isEditing">Add Tag Group</h1>
+      <h1 *ngIf="isEditing">Edit Tag Group</h1>
+
+      <form #form="ngForm" (ngSubmit)="send()">
+        <div class="input-field">
+          <input id="tag_group_name" #name="ngModel" name="name"
+            [class.invalid]="!name.valid && name.touched"
+            [(ngModel)]="tagGroupForm.name"
+            type="text"
+            required
+            maxlength="64">
+          <label for="tag_group_name">Tag Group Name</label>
+        </div>
+
+        <div class="input-field">
+          <input id="min_games_search" #min_games_search="ngModel" name="min_games_search"
+            [class.invalid]="!min_games_search.valid && min_games_search.touched"
+            [(ngModel)]="tagGroupForm.minGamesForSearch"
+            type="number"
+            required>
+          <label for="min_games_search">Minimum number of games for a tag in this group to be searcheable</label>
+        </div>
+
+        <div>
+          <input id="allow_votes" name="allow_votes" type="checkbox"
+            [(ngModel)]="tagGroupForm.allowVote">
+          <label for="allow_votes">Allow votes</label>
+        </div>
+
+        <div class="buttons-container right">
+          <button id="review-delete-button"
+              *ngIf="isEditing"
+              class="btn waves-effect waves-light left"
+              type="button"
+              (click)="delete()">
+            <i class="material-icons left">delete_forever</i>Delete
+          </button>
+
+          <button id="review-send-button"
+              class="btn waves-effect waves-light"
+              type="submit">
+            <i class="material-icons left">send</i>Send
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

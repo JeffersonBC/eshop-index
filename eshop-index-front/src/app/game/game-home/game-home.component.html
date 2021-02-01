@@ -1,0 +1,111 @@
+<!-- MEDIA -->
+<div (appDeferLoad)="gameMedia$.subscribe()">
+  <div class="container">
+    <h2>Images and Videos</h2>
+  </div>
+  <app-media-carousel [media]="gameMedia"></app-media-carousel>
+</div>
+
+<!-- SIMILAR GAMES -->
+<div (appDeferLoad)="similarGames$.subscribe()">
+  <div class="container">
+    <div class="title-button-container">
+      <h2>Similar Games</h2>
+      <a class="btn-flat waves-effect waves-orange" [routerLink]="['vote', 'similar']">
+        <i class="material-icons left">how_to_vote</i>Suggest similar game
+      </a>
+    </div>
+  </div>
+
+  <ng-container *ngIf="similarGames; else loading">
+    <app-game-carousel
+      [games]="similarGames"
+      analyticsCategory="Game Page - Similar"
+      [emptyMessage]="'No similar games were added yet'">
+    </app-game-carousel>
+  </ng-container>
+</div>
+
+<div class="container">
+  <!-- TAGS -->
+  <div (appDeferLoad)="tags$.subscribe()">
+    <div class="title-button-container">
+      <h2>Tags</h2>
+      <a class="btn-flat waves-effect waves-orange" [routerLink]="['vote', 'tag']">
+        <i class="material-icons left">how_to_vote</i>Suggest tag
+      </a>
+    </div>
+
+    <ng-container *ngIf="tags; else loading">
+      <div class="tag-group-container" *ngFor="let keyValue of tags | keyvalue">
+        <h3>{{ keyValue.key }}</h3>
+        <a *ngFor="let tag of keyValue.value"
+            class="chip orange darken-3 white-text btn waves-effect waves-ligth"
+            [routerLink]="['/search']"
+            [queryParams]="{tags: tag.id, order_by: '-vote_sum'}">
+          {{ tag.name }}
+        </a>
+      </div>
+
+      <ng-container *ngIf="_tagsLength == 0">
+        <div class="row"><div class="col s12 m8 offset-m2">
+          <div class="card-panel">There are no tags for this game yet.</div>
+        </div></div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <!-- REVIEWS -->
+  <div (appDeferLoad)="reviews$.subscribe()">
+    <div class="title-button-container">
+      <h2>Reviews</h2>
+      <div>
+        <a class="btn-flat waves-effect waves-orange" routerLink="reviews">
+          <i class="material-icons left">remove_red_eye</i>See all
+        </a>
+
+        <a class="btn-flat waves-effect waves-orange"
+            [routerLink]="['/', 'account', 'review', _gameCode]">
+          <i class="material-icons left">feedback</i>Write a review
+        </a>
+      </div>
+    </div>
+
+    <ng-container *ngIf="reviews && game; else loading">
+      <div class="row" *ngIf="reviews.length; else emptyReviews">
+        <div class="col s12 m6">
+          <app-review-card-horizontal
+            *ngFor="let review of reviews.slice(0, (reviews.length + 1) / 2)"
+            [user]="review.user"
+            [review]="review"
+            analyticsCategory="Game Page"
+            [gameTitle]="game.title">
+          </app-review-card-horizontal>
+        </div>
+
+        <div class="col s12 m6">
+          <app-review-card-horizontal
+            *ngFor="let review of reviews.slice((reviews.length + 1) / 2, reviews.length)"
+            [user]="review.user"
+            [review]="review"
+            analyticsCategory="Game Page"
+            [gameTitle]="game.title">
+          </app-review-card-horizontal>
+        </div>
+      </div>
+
+      <ng-template #emptyReviews>
+        <div class="row"><div class="col s12 m8 offset-m2">
+          <div class="card-panel">There are no reviews for this game yet.</div>
+        </div></div>
+      </ng-template>
+    </ng-container>
+
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="center" [style.height.px]="128">
+    <app-loading-circle></app-loading-circle>
+  </div>
+</ng-template>

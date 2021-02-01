@@ -1,0 +1,15 @@
+.card {
+    padding: 8px;
+    margin: 0;
+}
+
+.statistics-container {
+    display: flex;
+    flex-direction: row;
+
+    div {
+        &:not(:last-of-type) {
+            margin-right: 12px;
+        }
+    }
+}

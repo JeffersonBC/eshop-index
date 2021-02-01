@@ -1,0 +1,29 @@
+@import './variables';
+
+@import '~materialize-css/sass/materialize';
+@import '~materialize-css/sass/components/color';
+@import '~swiper/dist/css/swiper.min.css';
+
+
+@import './carousel';
+@import './form';
+@import './text';
+
+
+body {
+	background-color: color("grey", "lighten-5");
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}

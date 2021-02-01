@@ -1,0 +1,60 @@
+<form #form="ngForm" (ngSubmit)="send()">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+
+        <div class="row"><div class="col s12">
+          <h1>Resend activation email</h1>
+        </div></div>
+
+        <div class="row"><div class="col s12">
+          If you have created your account but waited too long to activate it (or if there was some error on our side and you never received your activation email...), just write the email address used to create your account and we will resend your activation email.<br><br>Please note it's only valid until the end of the day after you request a new activation email.
+        </div></div>
+
+        <div class="row" *ngIf="_errorMessage">
+          <div class="col s12">
+            <div class="card-panel red darken-2 white-text" [innerHTML]="_errorMessage"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="input-field">
+              <input id="email_field" #email="ngModel" name="email"
+                [class.invalid]="!email.valid && email.touched"
+                [(ngModel)]="formInfo.email"
+                type="email"
+                required email
+                maxlength="254">
+              <label for="email_field">Email</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="center">
+      <re-captcha id="captcha" name="captcha"
+        [(ngModel)]="captcha"
+        required>
+      </re-captcha>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="right">
+          <button class="btn waves-effect waves-light" type="submit"
+              [disabled]="!form.valid || _loading">
+            <i class="material-icons left">send</i>Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

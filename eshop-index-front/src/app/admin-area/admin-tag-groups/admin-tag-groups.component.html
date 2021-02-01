@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Tag Groups</h1>
+
+  <a class="btn-flat waves-effect waves-orange" routerLink="add" >
+    <i class="material-icons left">add</i>Add new tag group
+  </a>
+
+  <table class="striped">
+    <thead>
+      <tr>
+        <th class="full-width">Name</th>
+        <th>Modify</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let group of tagGroups">
+        <td>{{ group.name }}</td>
+        <td class="center-align">
+          <a [routerLink]="['edit', group.id]"><i class="material-icons">edit</i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

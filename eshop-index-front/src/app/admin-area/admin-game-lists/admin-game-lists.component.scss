@@ -1,0 +1,14 @@
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.collection-header-title {
+    font-size: 24px;
+}
+
+.collection {
+    .btn-flat {
+        padding: 0 12px;
+    }
+}

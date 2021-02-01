@@ -1,0 +1,46 @@
+<div class="container">
+  <h1>Latest activity</h1>
+
+  <ng-container *ngIf="news; else loading">
+    <div class="row">
+      <!-- LEFT COLUMN -->
+      <div class="recomendation-container col s12 m6"
+          *ngFor="let recomendation of news.slice(0, (news.length + 1) / 2)">
+        <div class="user">
+          <a class="username" [routerLink]="['/user', recomendation.username]">
+            @{{ recomendation.username }}
+          </a>
+          <i class="material-icons">{{ recomendation.recomends ? 'thumb_up' : 'thumb_down' }}</i>
+        </div>
+        <app-game-card-horizontal
+          [game]="recomendation.game.game"
+          [review]="recomendation.game.review"
+          analyticsCategory="News feed">
+        </app-game-card-horizontal>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="recomendation-container col s12 m6"
+          *ngFor="let recomendation of news.slice((news.length + 1) / 2, news.length)">
+        <div class="user">
+          <a class="username" [routerLink]="['/user', recomendation.username]">@{{ recomendation.username }}</a>
+          <i class="material-icons">{{ recomendation.recomends ? 'thumb_up' : 'thumb_down' }}</i>
+        </div>
+        <app-game-card-horizontal
+          [game]="recomendation.game.game"
+          [review]="recomendation.game.review"
+          analyticsCategory="News feed">
+        </app-game-card-horizontal>
+      </div>
+    </div>
+
+    <div class="card-panel" *ngIf="!news.length">
+      Not following any user yet.
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <app-loading-circle></app-loading-circle>
+  </ng-template>
+
+</div>

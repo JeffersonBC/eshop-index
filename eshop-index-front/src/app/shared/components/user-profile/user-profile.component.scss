@@ -1,0 +1,19 @@
+@import 'media-queries';
+
+
+.username-container {
+    @media #{$medium-and-up} {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        margin-top: 24px;
+
+        h1 {
+            margin-top: 0 !important;
+        }
+
+        .btn-flat {
+            margin: 5px 0;
+        }
+    }
+}

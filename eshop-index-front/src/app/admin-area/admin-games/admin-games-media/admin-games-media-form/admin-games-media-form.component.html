@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <h1 *ngIf="!isEditing">Add Game Media</h1>
+      <h1 *ngIf="isEditing">Edit Game Media</h1>
+
+      <form #form="ngForm" (ngSubmit)="send()">
+        <div class="input-field">
+          <select id="media" #type="ngModel" name="type"
+              [class.invalid]="!type.valid && type.touched"
+              materialize="material_select"
+              [(ngModel)]="formInfo.media_type"
+              required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="IMG">Image URL</option>
+            <option value="YTB">YouTube video code</option>
+          </select>
+          <label for="media">Media type</label>
+        </div>
+
+        <div class="input-field">
+          <input id="media_url" #url="ngModel" name="url"
+            [class.invalid]="!url.valid && url.touched"
+            [(ngModel)]="formInfo.url"
+            type="text"
+            required
+            maxlength="256">
+          <label for="media_url">Url</label>
+        </div>
+
+        <div class="buttons-container right">
+          <button *ngIf="isEditing"
+              class="btn waves-effect waves-light left"
+              type="button"
+              (click)="delete()">
+            <i class="material-icons left">delete_forever</i>Delete
+          </button>
+
+          <button type="submit" class="btn waves-effect waves-light">
+            <i class="material-icons left">send</i>Send
+          </button>
+        </div>
+
+
+
+      </form>
+    </div>
+  </div>
+</div>

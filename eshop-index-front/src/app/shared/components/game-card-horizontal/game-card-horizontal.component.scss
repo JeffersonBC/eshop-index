@@ -1,0 +1,133 @@
+@import '~materialize-css/sass/components/color';
+
+
+$image-width: 52px;
+
+.date {
+    color: color("grey", "darken-1");
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+    .card-image {
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        width: $image-width;
+        height: $image-width;
+
+        &.auto-img-width {
+            width: auto;
+        }
+
+        img {
+            height: auto;
+            width: auto;
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .card-content {
+        padding: 4px 8px 0;
+        flex-grow: 1;
+        max-width: calc(100% - #{$image-width});
+
+        .divider {
+            margin-top: 5px;
+        }
+    }
+
+    .card-title {
+        margin-bottom: 0;
+        font-size: 18px;
+        line-height: 22px;
+
+        // Overflow ellipsis
+        height: 22px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .link {
+            color: black;
+            &:hover {
+                color: color("grey", "darken-2");
+            }
+        }
+    }
+
+    .card-action {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0;
+        border-top: 0;
+
+        a {
+            margin-right: 0 !important;
+
+            &:not(.selected) {
+                color: color("grey", "darken-1");
+            }
+        }
+    }
+}
+
+.title-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.date-container {
+    display: flex;
+}
+
+.list-container {
+    display: flex;
+
+    height: 20px;
+    overflow: hidden;
+    margin-left: -4px;
+}
+
+.date-container, .list-container {
+    .material-icons {
+        line-height: unset;
+        margin: auto 0;
+    }
+}
+
+.list-items {
+    display: flex;
+    flex-wrap: wrap;
+
+    span, div {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 12px;
+    }
+}
+
+.chip {
+    height: 20px;
+    line-height: 20px;
+    margin: 0 0 0 4px;
+    border-radius: 0;
+}
+
+.text-container {
+    padding: 4px 8px;
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+
+        i {
+            margin-right: 8px;
+            line-height: 23px;
+        }
+    }
+}

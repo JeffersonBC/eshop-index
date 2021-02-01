@@ -1,0 +1,29 @@
+.tag-group-container {
+    margin-right: -12px;
+
+    .chip {
+        border-radius: 0;
+        margin-bottom: 6px;
+        margin-right: 12px;
+    }
+}
+
+.tags-collapsible {
+    &.collapsible, .collapsible, .collapsible-header, .collapsible-body {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        background-color: unset;
+        box-shadow: none;
+
+        h2, h3, h4 {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid darkgray;
+
+            .material-icons {
+                line-height: 42px;
+            }
+        }
+    }
+}
